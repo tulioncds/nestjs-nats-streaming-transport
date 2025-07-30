@@ -1,7 +1,7 @@
 {
-  "name": "@nestjs-plugins/nestjs-nats-streaming-transport",
-  "version": "1.3.0",
-  "description": "Nats Streaming Transport for NestJS",
+  "name": "@tulioncds/nestjs-nats-streaming-transport",
+  "version": "1.0.0",
+  "description": "Fork Nats Streaming Transport for NestJS - Auto Reconnect stan",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Redningsselskapet/nestjs-nats-streaming-transport"
+    "url": "https://github.com/tulioncds/nestjs-nats-streaming-transport"
   },
   "keywords": [
     "nestjs",
