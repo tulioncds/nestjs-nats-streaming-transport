@@ -7,7 +7,7 @@ import { NATS_STREAMING_OPTIONS } from "./constants";
 
 @Injectable()
 export class Publisher extends ClientProxy {
-  protected publish(packet: ReadPacket<any>, callback: (packet: WritePacket<any>) => void): () => void {  
+  protected publish(packet: ReadPacket<any>, callback: (packet: WritePacket<any>) => void): () => void {
     this.connection.publish(
       packet.pattern,
       JSON.stringify(packet.data),
@@ -19,11 +19,15 @@ export class Publisher extends ClientProxy {
         }
       }
     );
-    return () => {};
+    return () => { };
   }
 
   private logger: Logger;
   private connection: Stan;
+
+  setConnection(conn: Stan) {
+    this.connection = conn;
+  }
 
   constructor(
     @Inject(NATS_STREAMING_OPTIONS) private options: NatsStreamingPublishOptions
@@ -33,13 +37,7 @@ export class Publisher extends ClientProxy {
   }
 
   async onApplicationBootstrap() {
-    this.connection = await createConnection(
-      this.options.clusterId,
-      this.options.clientId,
-      this.options.connectOptions
-    );
-
-    this.logger.log("Publisher - Connected early to nats.");
+    await this.connect();
   }
 
   async connect(): Promise<Stan> {
@@ -49,7 +47,10 @@ export class Publisher extends ClientProxy {
     this.connection = await createConnection(
       this.options.clusterId,
       this.options.clientId,
-      this.options.connectOptions
+      this.options.connectOptions,
+      (sc: Stan) => {
+        this.setConnection(sc);
+      }
     );
     this.logger.log("Publisher - Connected to nats.");
   }

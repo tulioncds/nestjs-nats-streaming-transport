@@ -32,9 +32,10 @@ export class Listener extends Server implements CustomTransportStrategy {
   async listen(callback: () => void) {
     this.logger.log('Setting up event listeners...');
     this.connection = await createConnection(
-    this.clusterId,
-    this.clientId,
-    this.connectOptions
+      this.clusterId,
+      this.clientId,
+      this.connectOptions,
+      this.bindEventHandlers.bind(this)
     );
     this.bindEventHandlers();
     callback();
