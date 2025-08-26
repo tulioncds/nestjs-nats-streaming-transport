@@ -12,6 +12,7 @@ import { NatsStreamingContext } from './nats-streaming.context';
 import { createConnection } from './utils/create-stan-connection';
 import { buildSubscriptionOptions } from './utils/build-subscription-options';
 import { parseMessage } from './utils/parse-message';
+import { generate } from 'shortid';
 
 export class Listener extends Server implements CustomTransportStrategy {
   transportId?: Transport;
@@ -31,6 +32,7 @@ export class Listener extends Server implements CustomTransportStrategy {
   // setup listerners - this method is called by nestjs framwork.
   async listen(callback: () => void) {
     this.logger.log('Setting up event listeners...');
+    this.clientId = this.clientId + '-' + generate();
     this.connection = await createConnection(
       this.clusterId,
       this.clientId,

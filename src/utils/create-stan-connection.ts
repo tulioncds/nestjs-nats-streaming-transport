@@ -10,6 +10,7 @@ export const createConnection = async (
   onReconnect: (sc: Stan) => void
 ): Promise<Stan> => {
   const nc = await nats.connect({
+    url: connectOptions.url,
     servers: connectOptions.servers,
     encoding: 'binary',
     reconnect: connectOptions.reconnect,
