@@ -1,6 +1,6 @@
 {
   "name": "@tulioncds/nestjs-nats-streaming-transport",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "Fork Nats Streaming Transport for NestJS - Auto Reconnect stan",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
